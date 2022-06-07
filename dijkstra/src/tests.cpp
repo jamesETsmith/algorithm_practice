@@ -26,3 +26,33 @@ TEST_CASE("3 sites") {
   int distance = dijkstra(g, 0, 1);
   CHECK(distance == 2);
 }
+
+TEST_CASE("Two cycles") {
+  std::vector<std::vector<double>> adj_matrix = {
+      {0, 2, 6, 0, 0, 0, 0},   {2, 0, 0, 5, 0, 0, 0},  {6, 0, 0, 8, 0, 0, 0},
+      {0, 5, 8, 0, 10, 15, 0}, {0, 0, 0, 10, 0, 6, 2}, {0, 0, 0, 15, 6, 0, 6},
+      {0, 0, 0, 0, 2, 6, 0},
+  };
+  graph g{adj_matrix};
+  std::cout << g << std::endl;
+
+  int distance;
+
+  distance = dijkstra(g, 0, 1);
+  CHECK(distance == 2);
+
+  distance = dijkstra(g, 0, 2);
+  CHECK(distance == 6);
+
+  distance = dijkstra(g, 0, 3);
+  CHECK(distance == 7);
+
+  distance = dijkstra(g, 0, 4);
+  CHECK(distance == 17);
+
+  distance = dijkstra(g, 0, 5);
+  CHECK(distance == 22);
+
+  distance = dijkstra(g, 0, 6);
+  CHECK(distance == 19);
+}
